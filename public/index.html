@@ -64,11 +64,42 @@
       firebase.analytics();
       var db = firebase.firestore();
       //test add data
-      db.collection("users")
+      // db.collection("users")
+      //   .add({
+      //     first: "Michael",
+      //     last: "Trevino",
+      //     born: 1994
+      //   })
+      //   .then(function(docRef) {
+      //     console.log("Document written with ID: ", docRef.id);
+      //   })
+      //   .catch(function(error) {
+      //     console.error("Error adding document: ", error);
+      //   });
+      // post test
+      // db.collection("posts")
+      //   .add({
+      //     comments: "Michael",
+      //     date: "Trevino",
+      //     likes: 1994,
+      //     location: "Texas",
+      //     photo: "",
+      //     private: false,
+      //     title: "Michaels Bday",
+      //     video: ""
+      //   })
+      //   .then(function(docRef) {
+      //     console.log("Document written with ID: ", docRef.id);
+      //   })
+      //   .catch(function(error) {
+      //     console.error("Error adding document: ", error);
+      //   });
+      // // post-comments-reply test
+      db.collection("posts") // the head
+        .doc("1F7wYam3ksr1CrTbpgAT") // the id of the post
+        .collection("commentest") // the comment itself
         .add({
-          first: "Michael",
-          last: "Trevino",
-          born: 1994
+          reply: "nothing"
         })
         .then(function(docRef) {
           console.log("Document written with ID: ", docRef.id);
@@ -76,14 +107,25 @@
         .catch(function(error) {
           console.error("Error adding document: ", error);
         });
+
       //test read data
-      db.collection("users")
+      db.collection("posts")
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
           });
-        }); //
+        });
+      // //test read data of sub collections
+      db.collection("posts")
+        .doc("1F7wYam3ksr1CrTbpgAT")
+        .collection("commentest")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+          });
+        });
     </script>
   </body>
 </html>
