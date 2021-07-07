@@ -38,6 +38,94 @@
 
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
+      
     -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBpBaRF--6xHjqoLFE3zmsJaoH_T9hvmEI",
+        authDomain: "experience-trail-4aa48.firebaseapp.com",
+        databaseURL: "https://experience-trail-4aa48.firebaseio.com",
+        projectId: "experience-trail-4aa48",
+        storageBucket: "experience-trail-4aa48.appspot.com",
+        messagingSenderId: "767783658775",
+        appId: "1:767783658775:web:f53a02f9b2d824af198352",
+        measurementId: "G-BD8V9Q0SFZ"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      var db = firebase.firestore();
+      //test add data
+      // db.collection("users")
+      //   .add({
+      //     first: "Michael",
+      //     last: "Trevino",
+      //     born: 1994
+      //   })
+      //   .then(function(docRef) {
+      //     console.log("Document written with ID: ", docRef.id);
+      //   })
+      //   .catch(function(error) {
+      //     console.error("Error adding document: ", error);
+      //   });
+      // post test
+      // db.collection("posts")
+      //   .add({
+      //     comments: "Michael",
+      //     date: "Trevino",
+      //     likes: 1994,
+      //     location: "Texas",
+      //     photo: "",
+      //     private: false,
+      //     title: "Michaels Bday",
+      //     video: ""
+      //   })
+      //   .then(function(docRef) {
+      //     console.log("Document written with ID: ", docRef.id);
+      //   })
+      //   .catch(function(error) {
+      //     console.error("Error adding document: ", error);
+      //   });
+      // // post-comments-reply test
+      db.collection("posts") // the head
+        .doc("1F7wYam3ksr1CrTbpgAT") // the id of the post
+        .collection("commentest") // the comment itself
+        .add({
+          reply: "nothing"
+        })
+        .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+
+      //test read data
+      db.collection("posts")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+          });
+        });
+      // //test read data of sub collections
+      db.collection("posts")
+        .doc("1F7wYam3ksr1CrTbpgAT")
+        .collection("commentest")
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+          });
+        });
+    </script>
   </body>
 </html>
